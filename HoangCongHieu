@@ -1,0 +1,123 @@
+//Câu 1:
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Nhập điểm trung bình của học sinh: ");
+        double diemTrungBinh = double.Parse(Console.ReadLine());
+
+        string xepLoai = "";
+
+        if (diemTrungBinh >= 9.0)
+        {
+            xepLoai = "Xuất sắc";
+        }
+        else if (diemTrungBinh >= 8.0 && diemTrungBinh < 9.0)
+        {
+            xepLoai = "Giỏi";
+        }
+        else if (diemTrungBinh >= 6.5 && diemTrungBinh < 8.0)
+        {
+            xepLoai = "Khá";
+        }
+        else if (diemTrungBinh >= 5.0 && diemTrungBinh < 6.5)
+        {
+            xepLoai = "Trung bình";
+        }
+        else if (diemTrungBinh >= 3.5 && diemTrungBinh < 5.0)
+        {
+            xepLoai = "Yếu";
+        }
+        else
+        {
+            xepLoai = "Kém";
+        }
+
+        Console.WriteLine("Xếp loại của học sinh: " + xepLoai);
+    }
+}
+
+//Câu 6: 
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Nhập vào số tiền t (là bội số của 50.000):");
+        int t = int.Parse(Console.ReadLine());
+
+        int[] menhGia = { 500000, 200000, 100000, 50000 };
+        int[] soToTien = new int[4];
+
+        for (int i = 0; i < menhGia.Length; i++)
+        {
+            if (t >= menhGia[i])
+            {
+                soToTien[i] = t / menhGia[i];
+                t %= menhGia[i];
+            }
+        }
+
+        Console.Write("Số tiền {0} =", t);
+        for (int i = 0; i < menhGia.Length; i++)
+        {
+            if (soToTien[i] > 0)
+            {
+                Console.Write(" {0} tờ {1}", soToTien[i], menhGia[i]);
+            }
+        }
+    }
+}
+//Câu 7:
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Khai báo thông tin các bậc giá và giá bán điện
+        int[] kWhThresholds = { 50, 100, 200, 300, 400 };
+        int[] prices = { 1484, 1533, 1786, 2242, 2503, 2587 };
+        double vatRate = 0.1;
+
+        // Nhập chỉ số điện
+        Console.Write("Nhập chỉ số điện: ");
+        int electricityUsage = int.Parse(Console.ReadLine());
+
+        // Tính tiền điện
+        double totalCost = CalculateElectricityBill(electricityUsage, kWhThresholds, prices);
+        double vat = totalCost * vatRate;
+        double finalCost = totalCost + vat;
+
+        // Hiển thị kết quả
+        Console.WriteLine("Tiền điện: {0}", totalCost);
+        Console.WriteLine("Thuế VAT (10%): {0}", vat);
+        Console.WriteLine("Tổng tiền phải thanh toán: {0}", finalCost);
+
+        Console.ReadKey();
+    }
+
+    static double CalculateElectricityBill(int usage, int[] thresholds, int[] prices)
+    {
+        double totalCost = 0;
+
+        for (int i = 0; i < thresholds.Length; i++)
+        {
+            if (usage <= thresholds[i])
+            {
+                totalCost += usage * prices[i];
+                break;
+            }
+            else
+            {
+                totalCost += thresholds[i] * prices[i];
+                usage -= thresholds[i];
+            }
+        }
+
+        return totalCost;
+    }
+}
