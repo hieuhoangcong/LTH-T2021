@@ -1,0 +1,73 @@
+Câu 4:
+using System;
+
+namespace BT1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            int totalAnimals = 36;
+            int totalLegs = 100;
+
+            int chickenCount, dogCount;
+            FindChickenAndDogCount(totalAnimals, totalLegs, out chickenCount, out dogCount);
+
+
+            Console.WriteLine($"Số con gà là {chickenCount}, số con chó là {dogCount}");
+        }
+
+        static void FindChickenAndDogCount(int totalAnimals, int totalLegs, out int chickenCount, out int dogCount)
+        {
+            // Giải hệ phương trình
+
+            for (chickenCount = 0; chickenCount <= totalAnimals; chickenCount++)
+            {
+                dogCount = totalAnimals - chickenCount;
+
+                if ((2 * chickenCount + 4 * dogCount) == totalLegs)
+                {
+                    return;
+                }
+            }
+
+            // Không tìm được giải pháp hợp lý
+            chickenCount = dogCount = -1;
+        }
+    }
+}
+
+Câu 5:
+using System;
+
+namespace BT5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.Write("Nhập số nguyên m: ");
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Nhập số nguyên n: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            int ucln = W(m, n);
+
+            Console.WriteLine($"Ước chung lớn nhất của {m} và {n} là {ucln}");
+        }
+
+        static int W(int m, int n)
+        {
+            while (n != 0)
+            {
+                int temp = n;
+                n = m % n;
+                m = temp;
+            }
+            return m;
+        }
+    }
+}
