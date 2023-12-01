@@ -1,7 +1,48 @@
 Câu 4:
 using System;
 
-namespace BT1
+namespace BT5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+
+            while (true)
+            {
+                Console.Write("Nhập số nguyên m (để thoát, nhập một số âm): ");
+                int m = Convert.ToInt32(Console.ReadLine());
+
+                if (m < 0)
+                    break;
+
+                Console.Write("Nhập số nguyên n: ");
+                int n = Convert.ToInt32(Console.ReadLine());
+
+                int ucln = W(m, n);
+
+                Console.WriteLine($"Ước chung lớn nhất của {m} và {n} là {ucln}");
+            }
+        }
+
+        static int W(int m, int n)
+        {
+            while (n != 0)
+            {
+                int temp = n;
+                n = m % n;
+                m = temp;
+            }
+            return m;
+        }
+    }
+}
+
+Câu 5:
+using System;
+
+namespace BT5
 {
     class Program
     {
@@ -38,36 +79,3 @@ namespace BT1
     }
 }
 
-Câu 5:
-using System;
-
-namespace BT5
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-            Console.Write("Nhập số nguyên m: ");
-            int m = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Nhập số nguyên n: ");
-            int n = Convert.ToInt32(Console.ReadLine());
-
-            int ucln = W(m, n);
-
-            Console.WriteLine($"Ước chung lớn nhất của {m} và {n} là {ucln}");
-        }
-
-        static int W(int m, int n)
-        {
-            while (n != 0)
-            {
-                int temp = n;
-                n = m % n;
-                m = temp;
-            }
-            return m;
-        }
-    }
-}
