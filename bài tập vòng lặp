@@ -1,7 +1,7 @@
 Câu 4:
 using System;
 
-namespace BT5
+namespace BT4
 {
     class Program
     {
