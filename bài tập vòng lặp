@@ -1,7 +1,7 @@
-Câu 4:
+Câu 5:
 using System;
 
-namespace BT4
+namespace BT5
 {
     class Program
     {
@@ -39,43 +39,68 @@ namespace BT4
     }
 }
 
-Câu 5:
+Câu 4:
 using System;
 
-namespace BT5
+namespace BT4
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main(string[] args)
+        int totalAnimals = 36;
+        int totalLegs = 100;
+
+        // g là số con gà, c là số con chó
+        // g + c = 36 (tổng số con)
+        // 2g + 4c = 100 (tổng số chân)
+
+        for (int g = 0; g <= totalAnimals; g++)
         {
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-            int totalAnimals = 36;
-            int totalLegs = 100;
+            int c = totalAnimals - g;
 
-            int chickenCount, dogCount;
-            FindChickenAndDogCount(totalAnimals, totalLegs, out chickenCount, out dogCount);
-
-
-            Console.WriteLine($"Số con gà là {chickenCount}, số con chó là {dogCount}");
-        }
-
-        static void FindChickenAndDogCount(int totalAnimals, int totalLegs, out int chickenCount, out int dogCount)
-        {
-            // Giải hệ phương trình
-
-            for (chickenCount = 0; chickenCount <= totalAnimals; chickenCount++)
+            if (2 * g + 4 * c == totalLegs)
             {
-                dogCount = totalAnimals - chickenCount;
-
-                if ((2 * chickenCount + 4 * dogCount) == totalLegs)
-                {
-                    return;
-                }
+                Console.WriteLine($"Số con gà là {g}, số con chó là {c}");
+                break;
             }
-
-            // Không tìm được giải pháp hợp lý
-            chickenCount = dogCount = -1;
         }
     }
 }
+Bài 1:
+using System;
+namespace BT1
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Nhập vào số nguyên dương n: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        int sum = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            sum += i;
+        }
+
+        Console.WriteLine($"Tổng của dãy số từ 1 đến {n} là: {sum}");
+    }
+}
+Bài 3:
+using System;
+namespace BT3
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Nhập vào số nguyên dương n: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine($"Dãy số lẻ bé hơn {n}:");
+        for (int i = 1; i < n; i += 2)
+        {
+            Console.Write($"{i} ");
+        }
+    }
+}
+
 
