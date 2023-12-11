@@ -1,0 +1,344 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static List<Phanso> danhSachPhanso = new List<Phanso>();
+
+    static void Main()
+    {
+        Console.OutputEncoding = System.Text.Encoding.Unicode;
+
+        do
+        {
+            Console.WriteLine("-\n--CHUONG TRINH TINH TOAN PHAN SO-");
+            Console.WriteLine("\nChon 1: Them moi phan tu vao danh sach");
+            Console.WriteLine("Chon 2: Hien thi danh sach phan tu");
+            Console.WriteLine("Chon 3: Sap xep danh sach phan tu");
+            Console.WriteLine("Chon 4: Tim kiem phan tu trong mang");
+            Console.WriteLine("Chon 5: Chen phan tu vao mang");
+            Console.WriteLine("Chon 6: Xoa phan tu khoi danh sach");
+            Console.WriteLine("Chon 7: Thuc hien phep toan voi phan so");
+            Console.WriteLine("Chon 0: Ket thuc chuong trinh");
+            Console.WriteLine("-");
+
+            Console.Write("Xin moi lua chon thao tac: ");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    ThemPhanTu();
+                    break;
+                case 2:
+                    HienThiDanhSachPhanTu();
+                    break;
+                case 3:
+                    SapXepDanhSachPhanTu();
+                    break;
+                case 4:
+                    TimKiemPhanTu();
+                    break;
+                case 5:
+                    ChenPhanTu();
+                    break;
+                case 6:
+                    XoaPhanTu();
+                    break;
+                case 7:
+                    ThucHienPhepTinh();
+                    break;
+                case 0:
+                    Console.WriteLine("Ket thuc chuong trinh. Cam on!");
+                    break;
+                default:
+                    Console.WriteLine("Lua chon khong hop le. Vui long thu lai.");
+                    break;
+            }
+
+        } while (true);
+    }
+
+    static void ThemPhanTu()
+    {
+        Console.Write("Nhap tu so: ");
+        int tuSo = int.Parse(Console.ReadLine());
+
+        Console.Write("Nhap mau so (khac 0): ");
+        int mauSo;
+        while (true)
+        {
+            mauSo = int.Parse(Console.ReadLine());
+            if (mauSo != 0)
+                break;
+            else
+                Console.Write("Mau so khong duoc bang 0. Nhap lai: ");
+        }
+
+        danhSachPhanso.Add(new Phanso(tuSo, mauSo));
+        Console.WriteLine("Da them phan tu moi.");
+    }
+
+    static void HienThiDanhSachPhanTu()
+    {
+        Console.WriteLine("Danh sach phan tu:");
+        foreach (var phanso in danhSachPhanso)
+        {
+            phanso.InPhanso();
+        }
+    }
+
+    static void SapXepDanhSachPhanTu()
+    {
+        danhSachPhanso.Sort();
+        Console.WriteLine("Da sap xep danh sach phan tu.");
+    }
+
+    static void TimKiemPhanTu()
+    {
+        Console.Write("Nhap tu so can tim: ");
+        int tuSoCanTim = int.Parse(Console.ReadLine());
+
+        Console.Write("Nhap mau so can tim: ");
+        int mauSoCanTim;
+        while (true)
+        {
+            mauSoCanTim = int.Parse(Console.ReadLine());
+            if (mauSoCanTim != 0)
+                break;
+            else
+                Console.Write("Mau so khong duoc bang 0. Nhap lai: ");
+        }
+
+        Phanso phansoCanTim = new Phanso(tuSoCanTim, mauSoCanTim);
+
+        int index = danhSachPhanso.IndexOf(phansoCanTim);
+        if (index != -1)
+        {
+            Console.WriteLine($"Tim thay phan tu tai vi tri {index} trong danh sach.");
+        }
+        else
+        {
+            Console.WriteLine("Khong tim thay phan tu trong danh sach.");
+        }
+    }
+
+    static void ChenPhanTu()
+    {
+        Console.Write("Nhap vi tri can chen: ");
+        int viTriChen = int.Parse(Console.ReadLine());
+
+        if (viTriChen >= 0 && viTriChen <= danhSachPhanso.Count)
+        {
+            Console.Write("Nhap tu so: ");
+            int tuSoChen = int.Parse(Console.ReadLine());
+
+            Console.Write("Nhap mau so (khac 0): ");
+            int mauSoChen;
+            while (true)
+            {
+                mauSoChen = int.Parse(Console.ReadLine());
+                if (mauSoChen != 0)
+                    break;
+                else
+                    Console.Write("Mau so khong duoc bang 0. Nhap lai: ");
+            }
+
+            danhSachPhanso.Insert(viTriChen, new Phanso(tuSoChen, mauSoChen));
+            Console.WriteLine("Da chen phan tu vao danh sach.");
+        }
+        else
+        {
+            Console.WriteLine("Vi tri chen khong hop le.");
+        }
+    }
+
+    static void XoaPhanTu()
+    {
+        Console.Write("Nhap vi tri can xoa: ");
+        int viTriXoa = int.Parse(Console.ReadLine());
+
+        if (viTriXoa >= 0 && viTriXoa < danhSachPhanso.Count)
+        {
+            danhSachPhanso.RemoveAt(viTriXoa);
+            Console.WriteLine("Da xoa phan tu khoi danh sach.");
+        }
+        else
+        {
+            Console.WriteLine("Vi tri xoa khong hop le.");
+        }
+    }
+
+    static void ThucHienPhepTinh()
+    {
+        Console.Write("Nhap vi tri phan so thu nhat: ");
+        int viTriPs1 = int.Parse(Console.ReadLine());
+
+        Console.Write("Nhap vi tri phan so thu hai: ");
+        int viTriPs2 = int.Parse(Console.ReadLine());
+
+        if (viTriPs1 >= 0 && viTriPs1 < danhSachPhanso.Count &&
+            viTriPs2 >= 0 && viTriPs2 < danhSachPhanso.Count)
+        {
+            Phanso ps1 = danhSachPhanso[viTriPs1];
+            Phanso ps2 = danhSachPhanso[viTriPs2];
+
+            Console.WriteLine("Phan so thu nhat:");
+            ps1.InPhanso();
+
+            Console.WriteLine("Phan so thu hai:");
+            ps2.InPhanso();
+
+            do
+            {
+                Console.WriteLine("Chọn phép toán:");
+                Console.WriteLine("1. Cộng");
+                Console.WriteLine("2. Trừ");
+                Console.WriteLine("3. Nhân");
+                Console.WriteLine("4. Chia");
+                Console.WriteLine("5. Chọn phép toán khác");
+                Console.WriteLine("6. Thoát");
+
+                int choice = int.Parse(Console.ReadLine());
+
+                Phanso result = new Phanso();
+
+                switch (choice)
+                {
+                    case 1:
+                        result = ps1 + ps2;
+                        break;
+                    case 2:
+                        result = ps1 - ps2;
+                        break;
+                    case 3:
+                        result = ps1 * ps2;
+                        break;
+                    case 4:
+                        result = ps1 / ps2;
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ.");
+                        break;
+                }
+
+                if (choice >= 1 && choice <= 4)
+                {
+                    Console.Write("Kết quả:");
+                    result.InPhanso();
+
+                    Console.Write("Bạn muốn chọn phép toán khác (Y/N)?");
+                    string tiepTuc = Console.ReadLine().ToUpper();
+                    if (tiepTuc != "Y")
+                        break;
+                }
+
+            } while (true);
+        }
+        else
+        {
+            Console.WriteLine("Vi tri phan so khong hop le.");
+        }
+    }
+}
+
+class Phanso : IComparable<Phanso>
+{
+    private int tuSo;
+    private int mauSo;
+
+    public Phanso()
+    {
+        tuSo = 0;
+        mauSo = 1;
+    }
+
+    public Phanso(int tu, int mau)
+    {
+        tuSo = tu;
+        mauSo = mau != 0 ? mau : 1;
+        RutGon();
+    }
+
+    private static int UCLN(int a, int b)
+    {
+        a = Math.Abs(a);
+        b = Math.Abs(b);
+
+        while (a != b)
+        {
+            if (a > b)
+                a -= b;
+            else
+                b -= a;
+        }
+
+        return a;
+    }
+
+    private void RutGon()
+    {
+        int ucln = UCLN(tuSo, mauSo);
+        tuSo /= ucln;
+        mauSo /= ucln;
+
+        if (mauSo < 0)
+        {
+            tuSo = -tuSo;
+            mauSo = -mauSo;
+        }
+    }
+
+    public static Phanso operator +(Phanso ps1, Phanso ps2)
+    {
+        Phanso result = new Phanso(ps1.tuSo * ps2.mauSo + ps2.tuSo * ps1.mauSo, ps1.mauSo * ps2.mauSo);
+        result.RutGon();
+        return result;
+    }
+
+    public static Phanso operator -(Phanso ps1, Phanso ps2)
+    {
+        Phanso result = new Phanso(ps1.tuSo * ps2.mauSo - ps2.tuSo * ps1.mauSo, ps1.mauSo * ps2.mauSo);
+        result.RutGon();
+        return result;
+    }
+
+    public static Phanso operator *(Phanso ps1, Phanso ps2)
+    {
+        Phanso result = new Phanso(ps1.tuSo * ps2.tuSo, ps1.mauSo * ps2.mauSo);
+        result.RutGon();
+        return result;
+    }
+
+    public static Phanso operator /(Phanso ps1, Phanso ps2)
+    {
+        if (ps2.tuSo == 0)
+        {
+            Console.WriteLine("Không thể chia cho số 0.");
+            return null;
+        }
+
+        Phanso result = new Phanso(ps1.tuSo * ps2.mauSo, ps1.mauSo * ps2.tuSo);
+        result.RutGon();
+        return result;
+    }
+
+    public void InPhanso()
+    {
+        Console.WriteLine($"{tuSo}/{mauSo}");
+    }
+
+    public int CompareTo(Phanso other)
+    {
+        double value1 = (double)tuSo / mauSo;
+        double value2 = (double)other.tuSo / other.mauSo;
+
+        return value1.CompareTo(value2);
+    }
+}
